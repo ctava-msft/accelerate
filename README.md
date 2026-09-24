@@ -17,24 +17,24 @@ The design is platform-neutral. It can be used in a Teams app, web app, API, bac
 
 ```mermaid
 flowchart TD
-    entry[Agent<br/>Entry Point] --> determineIntent[Determine<br/>Intent/Task]
-    determineIntent <--> determineTask[[Determine Task:<br/>Make LM Call<br/><br/>SDK or API]]
-    determineIntent --> switchTask[Switch on<br/>Task]
-    switchTask --> taskType{Deterministic or<br/>Probabilistic<br/>Task?}
+    entry["Agent<br/>Entry Point"] --> determineIntent["Determine<br/>Intent/Task"]
+    determineIntent <--> determineTask[["Determine Task:<br/>Make LM Call<br/><br/>SDK or API"]]
+    determineIntent --> switchTask["Switch on<br/>Task"]
+    switchTask --> taskType{"Deterministic or<br/>Probabilistic<br/>Task?"}
 
-    taskType -- Deterministic --> deterministic[Execute<br/>Deterministic Task<br/>Step(s)]
-    taskType -- Probabilistic --> planTask[[Plan Task:<br/>Make LM Call<br/><br/>SDK or API]]
+    taskType -- Deterministic --> deterministic["Execute<br/>Deterministic Task<br/>Step(s)"]
+    taskType -- Probabilistic --> planTask[["Plan Task:<br/>Make LM Call<br/><br/>SDK or API"]]
 
     deterministic --> executeSteps
-    planTask --> executeSteps["Execute<br/>Task Step(s) through<br/>[Local | Remote]<br/>Tool Calls"]
+    planTask --> executeSteps["Execute<br/>Task Step(s) through<br/>Local or Remote<br/>Tool Calls"]
 
-    executeSteps --> fetchDecision{Fetch<br/>Resources?}
-    fetchDecision -- Yes --> fetchResources[Fetch Resources]
-    fetchResources --> businessLogic[Execute Business<br/>Logic]
-    businessLogic --> summarize[Summarize Output]
+    executeSteps --> fetchDecision{"Fetch<br/>Resources?"}
+    fetchDecision -- Yes --> fetchResources["Fetch Resources"]
+    fetchResources --> businessLogic["Execute Business<br/>Logic"]
+    businessLogic --> summarize["Summarize Output"]
     fetchDecision -- No --> summarize
 
-    summarize --> exit[Agent<br/>Exit Point]
+    summarize --> exit["Agent<br/>Exit Point"]
 ```
 
 The source for the agent workflow is also available in [`aks.mmd`](./aks.mmd). Additional application and channel diagrams are in [`app.mmd`](./app.mmd) and [`teams.mmd`](./teams.mmd).
@@ -118,4 +118,3 @@ An LM should not directly bypass business rules or security controls. High-impac
 - Test deterministic paths with conventional unit and integration tests.
 - Evaluate probabilistic paths with representative datasets, quality thresholds, adversarial inputs, and regression checks.
 - Define safe failure behavior; uncertainty should trigger clarification or escalation rather than an unsupported action.
-

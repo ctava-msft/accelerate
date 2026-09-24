@@ -1,19 +1,19 @@
 flowchart TD
-    entry[Agent<br/>Entry Point] --> determineIntent[Determine<br/>Intent/Task]
-    determineIntent <--> determineTask[[Determine Task:<br/>Make LM Call<br/><br/>SDK or API]]
-    determineIntent --> switchTask[Switch on<br/>Task]
-    switchTask --> taskType{Static or<br/>Dynamic<br/>Task?}
+    entry["Agent<br/>Entry Point"] --> determineIntent["Determine<br/>Intent/Task"]
+    determineIntent <--> determineTask[["Determine Task:<br/>Make LM Call<br/><br/>SDK or API"]]
+    determineIntent --> switchTask["Switch on<br/>Task"]
+    switchTask --> taskType{"Static or<br/>Dynamic<br/>Task?"}
 
-    taskType -- Static --> deterministic[Execute<br/>Deterministic Task<br/>Step(s)]
-    taskType -- Dynamic --> planTask[[Plan Task:<br/>Make LM Call<br/><br/>SDK or API]]
+    taskType -- Static --> deterministic["Execute<br/>Deterministic Task<br/>Step(s)"]
+    taskType -- Dynamic --> planTask[["Plan Task:<br/>Make LM Call<br/><br/>SDK or API"]]
 
     deterministic --> executeSteps
-    planTask --> executeSteps["Execute<br/>Task Step(s) through<br/>[Local | Remote]<br/>Tool Calls"]
+    planTask --> executeSteps["Execute<br/>Task Step(s) through<br/>Local or Remote<br/>Tool Calls"]
 
-    executeSteps --> fetchDecision{Fetch<br/>Resources?}
-    fetchDecision -- Y --> fetchResources[Fetch Resources]
-    fetchResources --> businessLogic[Execute Business<br/>Logic]
-    businessLogic --> summarize[Summarize Output]
+    executeSteps --> fetchDecision{"Fetch<br/>Resources?"}
+    fetchDecision -- Y --> fetchResources["Fetch Resources"]
+    fetchResources --> businessLogic["Execute Business<br/>Logic"]
+    businessLogic --> summarize["Summarize Output"]
     fetchDecision -- N --> summarize
 
-    summarize --> exit[Agent<br/>Exit Point]
+    summarize --> exit["Agent<br/>Exit Point"]
